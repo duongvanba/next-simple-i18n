@@ -1,0 +1,26 @@
+{
+  "name": "next-simple-i18n",
+  "repository": {
+    "url": "https://github.com/duongvanba/next-simple-i18n"
+  },
+  "version": "1.0.1",
+  "description": "",
+  "main": "build/index.js",
+  "types": "build/index.d.ts",
+  "files": [
+    "build/**/*"
+  ],
+  "dependencies": {
+    "react": "^18.2.0"
+  },
+  "devDependencies": {
+    "typescript": "^4.9.5"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "rm -rf build; tsc -b .",
+    "deploy": "yarn build; git add .; git commit -m \"Update\"; git push origin master; npm publish --access public"
+  },
+  "author": "",
+  "license": "ISC"
+}
