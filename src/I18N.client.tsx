@@ -2,30 +2,27 @@
 
 import { useI18NContext, I18nPrivateDataKey } from "./I18NProvider.client"
 import React, { JSX } from 'react'
+import { TranslateBox } from "./TranslateBox"
 
 export const I18N = (props: { children: string }) => {
 
     const key = props.children?.trim()
     const {
-        t,
-        [I18nPrivateDataKey]: { set_translating },
-        translating
+        is_translating,
+        [I18nPrivateDataKey]: { data }
     } = useI18NContext()
-    const translated_string = t(key, false)
+    const translated_string = data?.[key]
     const is_translated = translated_string !== undefined
     const result = translated_string || key
 
-    if (translating.active) return (
-        <span
-            onClick={e => e.altKey && key && set_translating({
-                active: true,
-                key,
-                translated_string
-            })}
-            style={{
-                border: `1px ${is_translated ? 'solid' : 'dotted'} ${is_translated ? 'green' : 'red'}`
-            }}
-        >{result}</span>
+
+    if (is_translating) return (
+        <TranslateBox
+            is_translated={is_translated}
+            translate_key={key}
+        >
+            {result}
+        </TranslateBox>
     )
 
     return result as any as JSX.Element

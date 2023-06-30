@@ -16,7 +16,7 @@ export const I18NProvider = (props: I18NProviderProps) => {
     return (
         <ClientI18NProvider
             {...props}
-            data={props.data[props.language_id]}
+            data={props.data?.[props.language_id]}
         />
     )
 
