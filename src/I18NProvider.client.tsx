@@ -14,7 +14,7 @@ export type TranslatedKeyList = {
 export type I18NProps = {
     language_id: string
     data: TranslatedKeyList
-    on_translate?: (key: string, value: string) => void
+    on_translate?: (language_id: string, key: string, value: string) => void
 }
 
 export const I18nPrivateDataKey = Symbol.for('I18nPrivateDataKey')

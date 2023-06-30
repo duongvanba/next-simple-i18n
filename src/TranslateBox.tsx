@@ -4,7 +4,7 @@ import { I18nPrivateDataKey, useI18NContext } from './I18NProvider.client';
 
 export type TranslateBox = {
     is_translated: boolean
-    translate_key: string 
+    translate_key: string
 }
 
 
@@ -15,7 +15,7 @@ export const TranslateBox = (props: PropsWithChildren<TranslateBox>) => {
             data,
             set_data,
         },
-        language_id 
+        language_id
     } = useI18NContext()
     const border = `1px ${props.is_translated ? 'solid' : 'dotted'} ${props.is_translated ? 'green' : 'red'}`
     const last_press_down = useRef(0)
@@ -24,7 +24,7 @@ export const TranslateBox = (props: PropsWithChildren<TranslateBox>) => {
         console.log('Action now')
         const text = prompt(`[${props.translate_key}] => [${language_id}]`, props.children as string)
         set_data({ ...data, [props.translate_key]: text })
-        on_translate?.(props.translate_key, text) 
+        on_translate?.(language_id, props.translate_key, text)
     }
 
     return (
