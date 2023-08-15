@@ -22,6 +22,7 @@ export const TranslateBox = (props: PropsWithChildren<TranslateBox>) => {
 
     const action = () => {
         const text = prompt(`[${props.translate_key}] => [${language_id}]`, props.children as string)
+        if (text == null) return
         set_data({ ...data, [props.translate_key]: text })
         on_translate?.(language_id, props.translate_key, text)
     }
