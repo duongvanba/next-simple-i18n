@@ -21,7 +21,6 @@ export const TranslateBox = (props: PropsWithChildren<TranslateBox>) => {
     const last_press_down = useRef(0)
 
     const action = () => {
-        console.log('Action now')
         const text = prompt(`[${props.translate_key}] => [${language_id}]`, props.children as string)
         set_data({ ...data, [props.translate_key]: text })
         on_translate?.(language_id, props.translate_key, text)

@@ -4,7 +4,7 @@ import { useI18NContext, I18nPrivateDataKey } from "./I18NProvider.client"
 import React, { JSX } from 'react'
 import { TranslateBox } from "./TranslateBox"
 
-export const I18N = (props: { children: string }) => {
+export const I18N = (props: { children: string, variables?: any }) => {
 
     const key = props.children?.trim()
     const {
@@ -13,7 +13,8 @@ export const I18N = (props: { children: string }) => {
     } = useI18NContext()
     const translated_string = data?.[key]
     const is_translated = translated_string !== undefined
-    const result = translated_string || key
+    const text = translated_string || key
+    const result = props.variables ? text.replaceAll(/\$([a-z0-9A-Z\_]+)/g, (_, k) => props.variables[k]) : text
 
 
     if (is_translating) return (

@@ -3,7 +3,7 @@
   "repository": {
     "url": "https://github.com/duongvanba/next-simple-i18n"
   },
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "",
   "main": "build/index.js",
   "types": "build/index.d.ts",
@@ -16,7 +16,8 @@
   },
   "devDependencies": {
     "@types/react": "^18.2.13",
-    "react": "^18.2.0"
+    "react": "^18.2.0",
+    "typescript": "^5.1.6"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
