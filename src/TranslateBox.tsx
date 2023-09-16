@@ -1,4 +1,4 @@
-import React, { JSX, useRef } from 'react'
+import React, { useRef } from 'react'
 import { PropsWithChildren } from "react";
 import { I18nPrivateDataKey, useI18NContext } from './I18NProvider.client';
 
@@ -11,20 +11,21 @@ export type TranslateBox = {
 export const TranslateBox = (props: PropsWithChildren<TranslateBox>) => {
     const {
         [I18nPrivateDataKey]: {
-            on_translate,
             data,
-            set_data,
+            prompt_for_translating,
+            set_translating_key
         },
-        language_id
+        language_id,
+        translating
     } = useI18NContext()
     const border = `1px ${props.is_translated ? 'solid' : 'dotted'} ${props.is_translated ? 'green' : 'red'}`
     const last_press_down = useRef(0)
 
     const action = () => {
+        if (!prompt_for_translating) return set_translating_key(props.translate_key)
         const text = prompt(`[${props.translate_key}] => [${language_id}]`, props.children as string)
         if (text == null) return
-        set_data({ ...data, [props.translate_key]: text })
-        on_translate?.(language_id, props.translate_key, text)
+        translating.translate(text)
     }
 
     return (

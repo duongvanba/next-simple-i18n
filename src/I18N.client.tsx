@@ -4,12 +4,12 @@ import { useI18NContext, I18nPrivateDataKey } from "./I18NProvider.client"
 import React, { JSX } from 'react'
 import { TranslateBox } from "./TranslateBox"
 
-export const I18N = (props: { children: string, variables?: any }) => {
+export const I18N = (props: { children: string, html?: boolean, variables?: any }) => {
 
     const key = props.children?.trim()
     const {
-        is_translating,
-        [I18nPrivateDataKey]: { data }
+        [I18nPrivateDataKey]: { data },
+        translating
     } = useI18NContext()
     const translated_string = data?.[key]
     const is_translated = translated_string !== undefined
@@ -17,7 +17,7 @@ export const I18N = (props: { children: string, variables?: any }) => {
     const result = props.variables ? text.replaceAll(/\$([a-z0-9A-Z\_]+)/g, (_, k) => props.variables[k]) : text
 
 
-    if (is_translating) return (
+    if (translating.visible) return (
         <TranslateBox
             is_translated={is_translated}
             translate_key={key}
@@ -25,6 +25,5 @@ export const I18N = (props: { children: string, variables?: any }) => {
             {result}
         </TranslateBox>
     )
-
-    return result as any as JSX.Element
+    return props.html ? <div dangerouslySetInnerHTML={{ __html: result }} /> : result as any as JSX.Element
 }
