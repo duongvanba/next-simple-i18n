@@ -8,12 +8,13 @@
 			"es2019.array",
 			"ESNext"
 		],
-		"module": "NodeNext",
-		"target": "esnext",
+		"module": "ES6",
+		"target": "ESNext",
 		"outDir": "build",
 		"esModuleInterop": true,
 		"sourceMap": false,
-		"importHelpers": true
+		"importHelpers": true,
+		"skipLibCheck": true
 	},
 	"include": [
 		"src"

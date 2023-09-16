@@ -30,6 +30,8 @@ export type I18NProps = {
 
 export const I18nPrivateDataKey = Symbol.for('I18nPrivateDataKey')
 
+
+
 export const [useI18NContext, ClientI18NProvider] = createContextFromHook(
     ({ prompt_for_translating, namespace, on_translate, ...props }: I18NProps) => {
 

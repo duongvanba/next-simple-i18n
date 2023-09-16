@@ -1,3 +1,5 @@
+'use client'
+
 import React, { useRef } from 'react'
 import { PropsWithChildren } from "react";
 import { I18nPrivateDataKey, useI18NContext } from './I18NProvider.client.js';

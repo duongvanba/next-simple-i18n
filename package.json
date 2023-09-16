@@ -4,7 +4,7 @@
   "repository": {
     "url": "https://github.com/duongvanba/next-simple-i18n"
   },
-  "version": "1.0.11",
+  "version": "1.0.12",
   "description": "",
   "main": "build/index.js",
   "types": "build/index.d.ts",
@@ -26,5 +26,8 @@
     "deploy": "yarn build; git add .; git commit -m \"Update\"; git push origin master; npm publish --access public"
   },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "tslib": "^2.6.2"
+  }
 }

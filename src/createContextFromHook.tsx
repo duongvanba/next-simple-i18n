@@ -1,3 +1,6 @@
+"use client"
+
+
 import React, { JSX, PropsWithChildren } from 'react'
 import { createContext, useContext } from "react"
 
