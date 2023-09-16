@@ -1,13 +1,11 @@
 
 import { PropsWithChildren } from 'react'
-import { I18NProps, ClientI18NProvider, TranslationDatabase } from './I18NProvider.client.js'
+import { I18NProps, ClientI18NProvider } from './I18NProvider.client.js'
 import React from 'react' 
 
 
 
-type I18NProviderProps = PropsWithChildren<
-    Omit<I18NProps, 'data'> & { data: TranslationDatabase }
->
+type I18NProviderProps = PropsWithChildren<I18NProps>
 
 
 

@@ -13,11 +13,11 @@ export type TranslateBox = {
 export const TranslateBox = (props: PropsWithChildren<TranslateBox>) => {
     const {
         [I18nPrivateDataKey]: {
-            prompt_for_translating,
             set_translating_key
         },
         language_id,
-        translating
+        prompt_for_translating,
+        translator
     } = useI18NContext()
     const border = `1px ${props.is_translated ? 'solid' : 'dotted'} ${props.is_translated ? 'green' : 'red'}`
     const last_press_down = useRef(0)
@@ -27,7 +27,7 @@ export const TranslateBox = (props: PropsWithChildren<TranslateBox>) => {
         if (!prompt_for_translating) return
         const text = prompt(`[${props.translate_key}] => [${language_id}]`, props.children as string)
         if (text == null) return
-        translating.translate(props.translate_key, text)
+        translator.edit(props.translate_key, text)
     }
 
     return (

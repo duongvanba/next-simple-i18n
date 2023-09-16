@@ -3,6 +3,7 @@
 
 import { useEffect, useState } from 'react';
 import { createContextFromHook } from './createContextFromHook.js';
+import { useSyncState } from './useSyncState.js';
 
 
 
@@ -24,8 +25,9 @@ export type I18NProps = {
     language_id: string
     data: TranslationDatabase
     namespace?: string
-    on_translate?: (data: OnTranslateProps) => void
+    push?: (data: OnTranslateProps) => void
     prompt_for_translating?: boolean
+    translating?: boolean
 }
 
 export const I18nPrivateDataKey = Symbol.for('I18nPrivateDataKey')
@@ -33,23 +35,17 @@ export const I18nPrivateDataKey = Symbol.for('I18nPrivateDataKey')
 
 
 export const [useI18NContext, ClientI18NProvider] = createContextFromHook(
-    ({ prompt_for_translating, namespace, on_translate, ...props }: I18NProps) => {
+    (props: I18NProps) => {
 
-        const [language_id, set_language_id] = useState(props.language_id)
-
-        useEffect(() => {
-            language_id != props.language_id && set_language_id(props.language_id)
-        }, [props.language_id])
-
-        const [is_translating, set_is_translating] = useState<boolean>(false)
-
+        const [language_id, set_language_id] = useSyncState(props.language_id)
+        const [translating, set_translating] = useSyncState<boolean>(props.translating)
         const [data, set_data] = useState<TranslationDatabase>(props.data || {})
 
         const [translating_key, set_translating_key] = useState<string>()
 
         const t = (key: string) => data?.[key] || key
 
-        const translate = (key: string, value: string) => {
+        const edit = (key: string, value: string) => {
             if (!key) return
             set_data({
                 ...data,
@@ -58,36 +54,34 @@ export const [useI18NContext, ClientI18NProvider] = createContextFromHook(
                     [key]: value
                 }
             })
-            on_translate({
+            props.push({
                 key,
                 language_id,
                 value,
-                namespace
+                namespace: props.namespace
             })
             set_translating_key(null)
         }
 
         return {
+            translating,
+            ...props,
             [I18nPrivateDataKey]: {
-                data,
-                set_translating_key,
-                prompt_for_translating
+                set_translating_key
             },
-            translating: {
-                visible: is_translating,
+            translator: {
                 key: translating_key,
                 value: translating_key ? t(translating_key) : null,
                 off: () => {
-                    set_is_translating(false)
+                    set_translating(false)
                     set_translating_key(null)
                 },
-                on: () => set_is_translating(true),
-                totgle: () => set_is_translating(!is_translating),
-                translate
+                on: () => set_translating(true),
+                totgle: () => set_translating(!translating),
+                edit
             },
-            language_id,
-            switch_language: set_language_id,
-            t
+            t,
+            set_language_id
         }
     }
 )
