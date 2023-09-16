@@ -9,10 +9,11 @@
 			"ESNext"
 		],
 		"module": "NodeNext",
-		"target": "ES6",
+		"target": "esnext",
 		"outDir": "build",
 		"esModuleInterop": true,
-		"sourceMap": false
+		"sourceMap": false,
+		"importHelpers": true
 	},
 	"include": [
 		"src"
@@ -24,5 +25,7 @@
 		"bin",
 		"tests"
 	],
-	"files": ["index.ts"]
+	"files": [
+		"index.ts"
+	]
 }

@@ -1,6 +1,6 @@
 import React, { useRef } from 'react'
 import { PropsWithChildren } from "react";
-import { I18nPrivateDataKey, useI18NContext } from './I18NProvider.client';
+import { I18nPrivateDataKey, useI18NContext } from './I18NProvider.client.js';
 
 export type TranslateBox = {
     is_translated: boolean
@@ -11,7 +11,6 @@ export type TranslateBox = {
 export const TranslateBox = (props: PropsWithChildren<TranslateBox>) => {
     const {
         [I18nPrivateDataKey]: {
-            data,
             prompt_for_translating,
             set_translating_key
         },
@@ -22,10 +21,11 @@ export const TranslateBox = (props: PropsWithChildren<TranslateBox>) => {
     const last_press_down = useRef(0)
 
     const action = () => {
-        if (!prompt_for_translating) return set_translating_key(props.translate_key)
+        set_translating_key(props.translate_key)
+        if (!prompt_for_translating) return
         const text = prompt(`[${props.translate_key}] => [${language_id}]`, props.children as string)
         if (text == null) return
-        translating.translate(text)
+        translating.translate(props.translate_key, text)
     }
 
     return (

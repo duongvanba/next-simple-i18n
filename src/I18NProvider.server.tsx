@@ -1,6 +1,6 @@
 
 import { PropsWithChildren } from 'react'
-import { I18NProps, ClientI18NProvider, TranslatedKeyList } from './I18NProvider.client'
+import { I18NProps, ClientI18NProvider, TranslatedKeyList } from './I18NProvider.client.js'
 import React from 'react' 
 
 
