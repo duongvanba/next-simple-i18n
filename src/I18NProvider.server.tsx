@@ -12,10 +12,7 @@ type I18NProviderProps = PropsWithChildren<I18NProps>
 export const I18NProvider = (props: I18NProviderProps) => {
 
     return (
-        <ClientI18NProvider
-            {...props}
-            data={props.data}
-        />
+        <ClientI18NProvider {...props} />
     )
 
 }

@@ -1,7 +1,7 @@
 "use client"
 
 
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { createContextFromHook } from './createContextFromHook.js';
 import { useSyncState } from './useSyncState.js';
 
@@ -81,7 +81,8 @@ export const [useI18NContext, ClientI18NProvider] = createContextFromHook(
                 edit
             },
             t,
-            set_language_id
+            set_language_id,
+            data
         }
     }
 )
