@@ -6,7 +6,7 @@ import { createContextFromHook } from './createContextFromHook.js';
 
 
 
-export type TranslatedKeyList = {
+export type TranslationDatabase = {
     [language_id: string]: {
         [key: string]: string
     }
@@ -22,7 +22,7 @@ export type OnTranslateProps = {
 
 export type I18NProps = {
     language_id: string
-    data: TranslatedKeyList
+    data: TranslationDatabase
     namespace?: string
     on_translate?: (data: OnTranslateProps) => void
     prompt_for_translating?: boolean
@@ -43,7 +43,7 @@ export const [useI18NContext, ClientI18NProvider] = createContextFromHook(
 
         const [is_translating, set_is_translating] = useState<boolean>(false)
 
-        const [data, set_data] = useState<TranslatedKeyList>(props.data || {})
+        const [data, set_data] = useState<TranslationDatabase>(props.data || {})
 
         const [translating_key, set_translating_key] = useState<string>()
 
