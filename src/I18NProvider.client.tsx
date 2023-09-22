@@ -43,7 +43,7 @@ export const [useI18NContext, ClientI18NProvider] = createContextFromHook(
 
         const [translating_key, set_translating_key] = useState<string>()
 
-        const t = (key: string) => data?.[key] || key
+        const t = (key: string) =>data?.[language_id]?.[key] || key
 
         const edit = (key: string, value: string) => {
             if (!key) return
