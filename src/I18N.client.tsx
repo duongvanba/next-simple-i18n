@@ -15,7 +15,7 @@ export const I18N = (props: { children: string, html?: boolean, variables?: any 
     const translated_string = data?.[language_id]?.[key]
     const is_translated = translated_string !== undefined
     const text = translated_string || key
-    const result = props.variables ? text.replaceAll(/\$([a-z0-9A-Z\_]+)/g, (_, k) => props.variables[k]) : text
+    const result = props.variables ? text.replaceAll(/\$([$a-z0-9A-Z\_]+)/g, (_, k) => props.variables[k]) : text
 
 
     if (translating) return (
