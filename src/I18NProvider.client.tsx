@@ -18,6 +18,7 @@ export type OnTranslateProps = {
     key: string,
     value: string,
     namespace?: string
+    dynamic?: boolean
 }
 
 
@@ -43,22 +44,23 @@ export const [useI18NContext, ClientI18NProvider] = createContextFromHook(
 
         const [translating_key, set_translating_key] = useState<string>()
 
-        const t = (key: string) =>data?.[language_id]?.[key] || key
+        const t = (key: string) => data?.[language_id]?.[key] || key
 
-        const edit = (key: string, value: string) => {
+        const edit = (key: string, value: string,dynamic:boolean) => {
             if (!key) return
             set_data({
                 ...data,
                 [language_id]: {
                     ...data?.[language_id] || {},
                     [key]: value
-                }
+                } 
             })
             props.push({
                 key,
                 language_id,
                 value,
-                namespace: props.namespace
+                namespace: props.namespace,
+                dynamic
             })
             set_translating_key(null)
         }
