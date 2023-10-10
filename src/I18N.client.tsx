@@ -12,25 +12,18 @@ export type I18N = {
 }
 export const I18N = (props: I18N) => {
 
-    const key = props.children.trim()
-    const {
-        data,
-        translating,
-        language_id
-    } = useI18NContext()
-    const translated_string = key ? data?.[language_id]?.[key] : (props.json ? props.json[language_id] : null)
-    if (!translating) return null
+    const key = props.children.trim();
+    const { data, translating, language_id } = useI18NContext();
+    const translated_string = data?.[language_id]?.[key] || props.json?.[language_id]
+    const result = props.variables ? translated_string?.replaceAll(/\$([$a-z0-9A-Z\_]+)/g, (_, k) => props.variables[k]) : (translated_string || key);
     const is_translated = translated_string !== undefined
-    const text = translated_string || key
-    const result = props.variables ? text.replaceAll(/\$([$a-z0-9A-Z\_]+)/g, (_, k) => props.variables[k]) : text
-
 
     if (translating) return (
         <TranslateBox
             is_translated={is_translated}
             translate_key={key}
             dynamic={props.json != undefined}
-            raw_translated_string={translated_string || ''}
+            raw_translated_string={translated_string || key}
         >
             {result}
         </TranslateBox>
