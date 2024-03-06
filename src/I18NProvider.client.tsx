@@ -1,7 +1,7 @@
 "use client"
 
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { createContextFromHook } from './createContextFromHook.js';
 import { useSyncState } from './useSyncState.js';
 
@@ -42,18 +42,22 @@ export const [useI18NContext, I18NClientProvider] = createContextFromHook(
         const [translating, set_translating] = useSyncState<boolean>(props.translating)
         const [data, set_data] = useState<TranslationDatabase>(props.data || {})
 
+        useEffect(() => {
+            set_data(props.data)
+        }, [props.data])
+
         const [translating_key, set_translating_key] = useState<string>()
 
         const t = (key: string) => data?.[language_id]?.[key] || key
 
-        const edit = (key: string, value: string,dynamic:boolean) => {
+        const edit = (key: string, value: string, dynamic: boolean) => {
             if (!key) return
             set_data({
                 ...data,
                 [language_id]: {
                     ...data?.[language_id] || {},
                     [key]: value
-                } 
+                }
             })
             props.push({
                 key,
