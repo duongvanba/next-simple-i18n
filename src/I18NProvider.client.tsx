@@ -35,7 +35,7 @@ export const I18nPrivateDataKey = Symbol.for('I18nPrivateDataKey')
 
 
 
-export const [useI18NContext, ClientI18NProvider] = createContextFromHook(
+export const [useI18NContext, I18NClientProvider] = createContextFromHook(
     (props: I18NProps) => {
 
         const [language_id, set_language_id] = useSyncState(props.language_id)
